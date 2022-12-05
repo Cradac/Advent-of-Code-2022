@@ -25,6 +25,8 @@ for pair in input:
         counter2 += 1
     elif int(first_lower) <= int(second_lower) and int(first_upper) >= int(second_upper) or int(first_lower) >= int(second_lower) and int(first_upper) <= int(second_upper):
         counter2 += 1
+
+
 print("Solution Part 1:")
 print(f"There are {counter} pairs that fully contain each other.")
 print("Solution Part 2:")
