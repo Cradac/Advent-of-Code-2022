@@ -75,7 +75,7 @@ point_total_2 = 0
 for game in input:
     point_total_2 += rps_overhauled(game)
 
-print("Solution Part 1;")
+print("Solution Part 1:")
 print(f"If you play after the strategy guide your point total is {point_total_1}")
 print("Solution Part 2:")
 print(f"If you play after the strategy guide your point total is {point_total_2}")
