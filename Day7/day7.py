@@ -6,7 +6,7 @@ input = input.read().split('\n')
 # A file gets represented as this class.
 class File:
     name: str = ''
-    size: int = ''
+    size: int = 0
     parent = None
 
     def __init__(self, name: str, size: int, parent):
@@ -52,13 +52,14 @@ class Folder:
                 return child
         return None
     
-    def get_size(self, collection: dict):
+    def get_size(self, collection: list):
         total_size = 0
         for child in self.children:
             childs_size, _nill = child.get_size(collection)
             total_size += childs_size
             if type(child) == Folder:
-                collection[child.name] = childs_size
+                collection.append(childs_size)
+                #collection[child.name] = childs_size
 
 
         return total_size, collection
@@ -130,18 +131,18 @@ def print_tree(root: Folder, indent: int):
     root.print_self(indent)
 
 #print_tree(root_dir, 0)
-collection: dict = {}
+collection: list = []
 root_size, collection = root_dir.get_size(collection)
-collection['/'] = root_size
+collection.append(root_size)
 #print(f'Size of Folder /: {root_size}')
 
 
 total_size = 0
-#print(collection)
-for name, size in collection.items():
+print(collection)
+for size in collection:
     if size <= 100000:
         total_size += size
-        print(f"{size}")
+        #print(f"{size}")
 
 print("Solution Part 1:")
 print(f"The sum of the total sizes of those directories of at most 100000 is {total_size}")
