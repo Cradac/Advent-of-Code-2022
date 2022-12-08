@@ -59,7 +59,6 @@ class Folder:
             total_size += childs_size
             if type(child) == Folder:
                 collection.append(childs_size)
-                #collection[child.name] = childs_size
 
 
         return total_size, collection
@@ -85,12 +84,8 @@ def navigate(name: str, cur_dir: Folder):
         next_dir = cur_dir.add_child(Folder(name))
     return next_dir
 
-# weird pointer that shows where in the FS we currently are
-
-
 root_dir: Folder = Folder('/', None)
 pointer: Folder = root_dir
-
 
 for line in input:
     # Command
@@ -109,7 +104,6 @@ for line in input:
             else:
                 pointer = navigate(line[1], pointer)
         elif line[0] == 'ls':
-            # Prepare for input?
             pass
     
     # Command Output
@@ -130,21 +124,29 @@ for line in input:
 def print_tree(root: Folder, indent: int):
     root.print_self(indent)
 
-#print_tree(root_dir, 0)
 collection: list = []
 root_size, collection = root_dir.get_size(collection)
 collection.append(root_size)
-#print(f'Size of Folder /: {root_size}')
 
 
 total_size = 0
-print(collection)
 for size in collection:
     if size <= 100000:
         total_size += size
-        #print(f"{size}")
+
+# Part 2
+total_diskspace = 70000000
+needed_free_space = 30000000
+
+cur_free_space = total_diskspace-root_size
+space_to_free = needed_free_space-cur_free_space
+
+collection.sort()
+for dir_space in collection:
+    if dir_space >= space_to_free:
+        break 
 
 print("Solution Part 1:")
 print(f"The sum of the total sizes of those directories of at most 100000 is {total_size}")
 print("Solution Part 2:")
-print(f"")
+print(f"The size of the smallest directory that would free up enough space is {dir_space}")
